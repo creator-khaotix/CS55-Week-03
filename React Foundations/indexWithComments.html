@@ -1,0 +1,150 @@
+<!-- 
+  Next.js React Tutorial - Step-by-Step Learning Example
+  This HTML file demonstrates fundamental React concepts through a simple web application.
+  It covers: components, props, state management, event handling, and JSX rendering.
+-->
+
+<html>
+  <body>
+    <!-- 
+      React Mount Point: This div serves as the container where our React app will be rendered.
+      React will replace the content of this div with our component tree.
+    -->
+    <div id="app"></div>
+
+    <!-- 
+      External Script Dependencies:
+      These CDN links load the necessary libraries for React development.
+      In a production Next.js app, these would be bundled automatically.
+    -->
+    
+    <!-- React Core Library: Provides the fundamental React functionality -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    
+    <!-- React DOM: Handles rendering React components to the actual DOM -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel Standalone: Transpiles JSX syntax to regular JavaScript in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- 
+      Main Application Script:
+      This script contains our React components and application logic.
+      The type="text/jsx" tells Babel to process this script for JSX syntax.
+    -->
+    <script type="text/jsx">
+      // Get reference to the DOM element where React will mount our app
+      const app = document.getElementById("app")
+
+      /**
+       * Header Component - Demonstrates Props
+       * 
+       * This is a functional component that accepts props as a parameter.
+       * Props are how parent components pass data down to child components.
+       * 
+       * @param {Object} props - The props object containing component properties
+       * @param {string} props.title - The title text to display
+       * @returns {JSX.Element} A heading element with the provided or default title
+       */
+      function Header({ title }) {
+        // JSX allows us to write HTML-like syntax in JavaScript
+        // The ternary operator provides a fallback value if no title is passed
+        return <h1>{title ? title : "Default title"}</h1>
+      }
+
+      /**
+       * HomePage Component - Main Application Component
+       * 
+       * This is the main component that demonstrates several React concepts:
+       * - Component composition (using Header component)
+       * - State management with useState hook
+       * - Event handling
+       * - List rendering with map()
+       * - JSX conditional rendering
+       * 
+       * @returns {JSX.Element} The complete homepage layout
+       */
+      function HomePage() {
+        // Static data array - in a real app, this might come from an API
+        const names = ["Ada Lovelace", "Grace Hopper", "Margaret Hamilton"]
+
+        /**
+         * State Management with useState Hook
+         * 
+         * useState is a React Hook that allows functional components to have state.
+         * It returns an array with two elements:
+         * - likes: the current state value
+         * - setLikes: a function to update the state
+         * 
+         * The initial value is 0, representing the number of likes.
+         */
+        const [likes, setLikes] = React.useState(0)
+
+        /**
+         * Event Handler Function
+         * 
+         * This function handles the click event on the like button.
+         * It demonstrates how to update state based on user interaction.
+         * 
+         * Note: We're using the current likes value and adding 1 to it.
+         * In more complex scenarios, you might want to use the functional
+         * update form: setLikes(prevLikes => prevLikes + 1)
+         */
+        function handleClick() {
+          setLikes(likes + 1)
+        }
+
+        /**
+         * JSX Return Statement
+         * 
+         * This is where we define what the component should render.
+         * JSX allows us to write HTML-like syntax that gets transformed
+         * into React.createElement() calls.
+         */
+        return (
+          <div>
+            {/* 
+              Component Composition: Using the Header component with props
+              We're passing the title prop with the value "Develop. Preview. Ship."
+            */}
+            <Header title="Develop. Preview. Ship." />
+            
+            {/* 
+              List Rendering with map()
+              We're transforming the names array into a list of <li> elements.
+              The key prop is important for React's reconciliation process.
+            */}
+            <ul>
+              {names.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+
+            {/* 
+              Interactive Button with Event Handling
+              - onClick: Event handler that calls our handleClick function
+              - Template literal: Displays the current likes count in the button text
+            */}
+            <button onClick={handleClick}>Like ({likes})</button>
+          </div>
+        )
+      }
+
+      /**
+       * React App Initialization
+       * 
+       * This is where we create the React root and render our main component.
+       * In Next.js, this process is handled automatically, but here we're
+       * doing it manually to understand the underlying concepts.
+       */
+      
+      // Create a React root for the app container
+      // This is the new way to create roots in React 18
+      const root = ReactDOM.createRoot(app);
+      
+      // Render the HomePage component into the root
+      // This replaces the content of the #app div with our React component tree
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>
