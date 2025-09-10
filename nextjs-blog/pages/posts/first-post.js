@@ -9,9 +9,9 @@ export default function FirstPost() {
           <title>First Post</title>
         </Head>
         
-        <h1>First Post</h1>
+        <h2>The imbed was in case you didn't get the reference.</h2>
         <h2>
-          <Link href="/">← Back to home</Link>
+          <Link href="/">← Forgive me if you are Mormon</Link>
         </h2>
       </>
     );
